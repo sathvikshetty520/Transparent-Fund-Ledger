@@ -1,1 +1,38 @@
- 
+{
+  "name": "transparent-fund-ledger-backend",
+  "version": "1.0.0",
+  "description": "Backend API for Transparent Fund Ledger",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "test": "jest --runInBand",
+    "test:watch": "jest --watch",
+    "seed:demo": "node src/utils/seedDemo.js"
+  },
+  "keywords": [
+    "transparent-fund-ledger",
+    "fund-management",
+    "audit-ledger",
+    "express",
+    "postgresql"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "audit-ledger": "file:../audit-ledger",
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^2.4.0",
+    "pg": "^8.16.3",
+    "zod": "^4.1.5"
+  },
+  "devDependencies": {
+    "jest": "^30.1.3",
+    "nodemon": "^3.1.10",
+    "supertest": "^7.1.4"
+  }
+}
