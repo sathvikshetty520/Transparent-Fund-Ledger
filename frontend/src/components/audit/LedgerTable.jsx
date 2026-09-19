@@ -12,7 +12,7 @@ export default function LedgerTable() {
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      style={{ maxWidth: '1000px', margin: '0 auto', padding: '1rem' }}
+      style={{ maxWidth: '1000px', margin: '0 auto', padding: '1rem 0' }}
     >
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
         {mockTransactions.map((tx, index) => (
@@ -21,26 +21,25 @@ export default function LedgerTable() {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.4, delay: index * 0.12 }}
-            whileHover={{ y: -3, boxShadow: '0 10px 20px -5px rgba(0, 0, 0, 0.08)' }}
+            whileHover={{ y: -3, borderColor: '#38bdf8', boxShadow: '0 0 15px rgba(56, 189, 248, 0.2)' }}
             whileTap={{ scale: 0.99 }}
             style={{
               padding: '1.5rem',
               borderRadius: '12px',
-              border: '1px solid #e2e8f0',
-              backgroundColor: '#ffffff',
-              boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
+              border: '1px solid rgba(56, 189, 248, 0.2)',
+              backgroundColor: '#0f172a',
               display: 'flex',
-              justifyContent: 'space-between',
+              justify: 'space-between',
               alignItems: 'center',
               cursor: 'pointer'
             }}
           >
             <div>
-              <h3 style={{ fontSize: '1.125rem', fontWeight: '700', color: '#0f172a', marginBottom: '0.25rem' }}>
+              <h3 style={{ fontSize: '1.125rem', fontWeight: '700', color: '#f8fafc', marginBottom: '0.25rem' }}>
                 {tx.id}
               </h3>
-              <p style={{ color: '#64748b', fontSize: '0.875rem', marginBottom: '0.5rem' }}>
-                {tx.category} • <span style={{ fontFamily: 'monospace' }}>{tx.txHash}</span>
+              <p style={{ color: '#94a3b8', fontSize: '0.875rem', marginBottom: '0.5rem' }}>
+                {tx.category} • <span style={{ fontFamily: 'monospace', color: '#38bdf8' }}>{tx.txHash}</span>
               </p>
               <span style={{
                 display: 'inline-flex',
@@ -48,17 +47,17 @@ export default function LedgerTable() {
                 gap: '0.35rem',
                 fontSize: '0.75rem',
                 fontWeight: '600',
-                color: '#16a34a'
+                color: '#22c55e'
               }}>
                 ● {tx.status}
               </span>
             </div>
 
             <div style={{ textAlign: 'right' }}>
-              <div style={{ fontSize: '1.25rem', fontWeight: '700', color: '#0f172a' }}>
+              <div style={{ fontSize: '1.25rem', fontWeight: '700', color: '#f8fafc' }}>
                 {tx.amount}
               </div>
-              <div style={{ fontSize: '0.75rem', color: '#94a3b8', marginTop: '0.25rem' }}>
+              <div style={{ fontSize: '0.75rem', color: '#64748b', marginTop: '0.25rem' }}>
                 {tx.date}
               </div>
             </div>
