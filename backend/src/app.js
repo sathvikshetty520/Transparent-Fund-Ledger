@@ -8,6 +8,7 @@ const { success } = require("./utils/response");
 const authRoutes = require("./routes/auth.routes");
 const userRoutes = require("./routes/user.routes");
 const campaignRoutes = require("./routes/campaign.routes");
+const donationRoutes = require("./routes/donation.routes");
 
 const app = express();
 
@@ -30,20 +31,10 @@ app.get("/api/health", (req, res) => {
   });
 });
 
-// Authentication
 app.use("/api/auth", authRoutes);
-
-// Users
 app.use("/api/users", userRoutes);
-
-// Campaigns
 app.use("/api/campaigns", campaignRoutes);
-
-// Donations
-// Allocations
-// Expenses
-// Dashboard
-// Ledger - owned by Member 4
+app.use("/api", donationRoutes);
 
 app.use(errorHandler);
 
