@@ -142,3 +142,41 @@ describe('audit-ledger: appendEntry', () => {
     expect(indices).toEqual(Array.from({ length: count }, (_, i) => i + 1));
   });
 });
+
+describe('audit-ledger: Database Immutability Triggers', () => {
+  let pool;
+
+  beforeAll(async () => {
+    pool = new Pool({ connectionString });
+  });
+
+  afterAll(async () => {
+    await pool.end();
+  });
+
+  describe('Database Immutability Triggers', () => {
+    test('Should reject UPDATE on ledger_entries', async () => {
+      await expect(
+        pool.query("UPDATE ledger_entries SET payload = '{\"tampered\": true}'")
+      ).rejects.toThrow(/append-only/i);
+    });
+
+    test('Should reject DELETE on ledger_entries', async () => {
+      await expect(
+        pool.query("DELETE FROM ledger_entries")
+      ).rejects.toThrow(/append-only/i);
+    });
+
+    test('Should reject TRUNCATE on ledger_entries under normal session role', async () => {
+      await expect(
+        pool.query("TRUNCATE TABLE ledger_entries CASCADE")
+      ).rejects.toThrow(/append-only/i);
+    });
+  });
+
+  test('Should reject TRUNCATE on ledger_entries under normal session role', async () => {
+    await expect(
+      pool.query("TRUNCATE TABLE ledger_entries")
+    ).rejects.toThrow(/append-only/i);
+  });
+});
