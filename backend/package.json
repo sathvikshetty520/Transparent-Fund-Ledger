@@ -1,4 +1,4 @@
- {
+{
   "name": "transparent-fund-ledger-backend",
   "version": "1.0.0",
   "description": "Backend API for Transparent Fund Ledger",
@@ -20,6 +20,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "audit-ledger": "file:../audit-ledger",
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
     "dotenv": "^17.2.1",
