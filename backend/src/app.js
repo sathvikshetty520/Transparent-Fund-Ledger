@@ -1,7 +1,9 @@
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 
 const env = require("./config/env");
+const db = require("./config/db");
 const errorHandler = require("./middleware/errorHandler");
 const { success } = require("./utils/response");
 
@@ -12,18 +14,40 @@ const donationRoutes = require("./routes/donation.routes");
 const allocationRoutes = require("./routes/allocation.routes");
 const expenseRoutes = require("./routes/expense.routes");
 const dashboardRoutes = require("./routes/dashboard.routes");
+const LedgerService = require("./services/ledger.service");
+const ledgerRoutes = require("./routes/ledger.routes");
 
 const app = express();
 
+const allowedOrigins = [
+  env.frontendUrl,
+  "http://localhost:5173",
+  "http://localhost:5174",
+  "http://127.0.0.1:5173",
+  "http://127.0.0.1:5174"
+].filter(Boolean);
+
 app.use(
   cors({
-    origin: env.frontendUrl,
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(null, true);
+      }
+    },
     credentials: true
   })
 );
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Serve static receipt files
+app.use(
+  "/uploads",
+  express.static(path.resolve(process.cwd(), env.uploadDir))
+);
 
 app.get("/api/health", (req, res) => {
   return success(res, {
@@ -42,7 +66,9 @@ app.use("/api", allocationRoutes);
 app.use("/api", expenseRoutes);
 app.use("/api", dashboardRoutes);
 
-// Ledger - owned by Member 4
+// Ledger endpoints
+const ledgerService = new LedgerService(db.pool);
+app.use("/api", ledgerRoutes(ledgerService));
 
 app.use(errorHandler);
 
