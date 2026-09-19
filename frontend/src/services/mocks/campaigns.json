@@ -1,0 +1,20 @@
+[
+  {
+    "id": "camp_1",
+    "title": "Clean Water Initiative",
+    "description": "Providing clean drinking water filters to rural communities.",
+    "targetAmount": 10000,
+    "raisedAmount": 4500,
+    "status": "ACTIVE",
+    "organizer": "Water For All NGO"
+  },
+  {
+    "id": "camp_2",
+    "title": "Community Solar Grid",
+    "description": "Building a micro-solar grid for off-grid public facilities.",
+    "targetAmount": 25000,
+    "raisedAmount": 18200,
+    "status": "ACTIVE",
+    "organizer": "GreenEnergy Trust"
+  }
+]
