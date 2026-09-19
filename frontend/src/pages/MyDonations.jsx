@@ -10,7 +10,7 @@ import Badge from '../components/Badge';
 import Button from '../components/Button';
 
 export default function MyDonations() {
-  const { data, loading, error } = useLoad(getMyDonations);
+  const { data, loading, error } = useLoad(getMyDonations, [], { interval: 6000 });
   const donations = toList(data, 'donations').map(normalizeDonation);
   const total = donations.reduce((sum, d) => sum + d.amount, 0);
 

@@ -48,9 +48,9 @@ function runChecks({ dashboard, donations, allocations, expenses }) {
 
 export default function VerifyLedger() {
   const [params, setParams] = useSearchParams();
-  const { campaigns, loading: listLoading, error: listError } = useCampaigns();
+  const { campaigns, loading: listLoading, error: listError } = useCampaigns({ interval: 6000 });
   const selected = params.get('campaign') || campaigns[0]?.id;
-  const ledger = useLoad(() => (selected ? loadCampaignLedger(selected) : null), [selected]);
+  const ledger = useLoad(() => (selected ? loadCampaignLedger(selected) : null), [selected], { interval: 6000 });
 
   const checks = ledger.data ? runChecks(ledger.data) : [];
   const failed = checks.filter((c) => c.result === 'fail').length;

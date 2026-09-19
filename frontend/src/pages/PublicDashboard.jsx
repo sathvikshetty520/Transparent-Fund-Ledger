@@ -16,11 +16,11 @@ import { Link } from 'react-router-dom';
 
 export default function PublicDashboard() {
   const [params, setParams] = useSearchParams();
-  const summary = useLoad(getSummary);
-  const { campaigns, loading: listLoading, error: listError } = useCampaigns();
+  const summary = useLoad(getSummary, [], { interval: 5000 });
+  const { campaigns, loading: listLoading, error: listError } = useCampaigns({ interval: 5000 });
 
   const selected = params.get('campaign') || campaigns[0]?.id;
-  const dash = useLoad(() => (selected ? getCampaignDashboard(selected) : null), [selected]);
+  const dash = useLoad(() => (selected ? getCampaignDashboard(selected) : null), [selected], { interval: 5000 });
   const d = normalizeDashboard(toObject(dash.data, 'dashboard'));
   const rows = summaryRows(toObject(summary.data, 'summary'));
 

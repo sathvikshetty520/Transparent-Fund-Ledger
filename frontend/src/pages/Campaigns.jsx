@@ -5,7 +5,7 @@ import LoadState from '../components/LoadState';
 import CampaignCard from '../components/CampaignCard';
 
 export default function Campaigns() {
-  const { campaigns, loading, error } = useCampaigns();
+  const { campaigns, loading, error } = useCampaigns({ interval: 8000 });
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('');
 

@@ -8,10 +8,10 @@ import LoadState from '../components/LoadState';
 import Card from '../components/Card';
 
 export default function AdminDashboard() {
-  const summary = useLoad(getSummary);
-  const pendingCampaigns = useLoad(getPendingCampaigns);
-  const allocations = useLoad(getPendingAllocations);
-  const expenses = useLoad(getPendingExpenses);
+  const summary = useLoad(getSummary, [], { interval: 5000 });
+  const pendingCampaigns = useLoad(getPendingCampaigns, [], { interval: 5000 });
+  const allocations = useLoad(getPendingAllocations, [], { interval: 5000 });
+  const expenses = useLoad(getPendingExpenses, [], { interval: 5000 });
 
   const queues = [
     { to: '/admin/campaigns', label: 'Campaigns waiting', count: toList(pendingCampaigns.data, 'campaigns').length },

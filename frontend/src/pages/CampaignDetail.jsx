@@ -27,7 +27,7 @@ export default function CampaignDetail() {
     const raw = await getCampaign(id);
     const ledger = await loadCampaignLedger(id);
     return { campaign: normalizeCampaign(toObject(raw, 'campaign')), ledger };
-  }, [id]);
+  }, [id], { interval: 5000 });
 
   return (
     <div className="container page">

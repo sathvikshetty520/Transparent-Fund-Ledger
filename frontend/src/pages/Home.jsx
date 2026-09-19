@@ -15,8 +15,8 @@ const STEPS = [
 ];
 
 export default function Home() {
-  const summary = useLoad(getSummary);
-  const { campaigns, loading: campaignsLoading } = useCampaigns();
+  const summary = useLoad(getSummary, [], { interval: 8000 });
+  const { campaigns, loading: campaignsLoading } = useCampaigns({ interval: 8000 });
   const rows = summaryRows(toObject(summary.data, 'summary'));
   const featured = campaigns.slice(0, 3);
 

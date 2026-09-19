@@ -13,7 +13,7 @@ import Alert from '../components/Alert';
 import ReasonModal from '../components/ReasonModal';
 
 export default function AllocationApprovals() {
-  const { data, loading, error, reload } = useLoad(getPendingAllocations);
+  const { data, loading, error, reload } = useLoad(getPendingAllocations, [], { interval: 5000 });
   const [message, setMessage] = useState({ type: '', text: '' });
   const [rejecting, setRejecting] = useState(null);
   const [busyId, setBusyId] = useState(null);

@@ -15,11 +15,11 @@ const FILTERS = ['All', 'Donation', 'Allocation', 'Expense'];
 
 export default function AuditExplorer() {
   const [params, setParams] = useSearchParams();
-  const { campaigns, loading: listLoading, error: listError } = useCampaigns();
+  const { campaigns, loading: listLoading, error: listError } = useCampaigns({ interval: 6000 });
   const [filter, setFilter] = useState('All');
 
   const selected = params.get('campaign') || campaigns[0]?.id;
-  const ledger = useLoad(() => (selected ? loadCampaignLedger(selected) : null), [selected]);
+  const ledger = useLoad(() => (selected ? loadCampaignLedger(selected) : null), [selected], { interval: 6000 });
 
   // Put donations, allocations and expenses into one list, newest first
   let entries = [];

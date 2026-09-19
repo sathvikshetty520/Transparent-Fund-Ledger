@@ -13,7 +13,7 @@ import Alert from '../components/Alert';
 import ReasonModal from '../components/ReasonModal';
 
 export default function ExpenseVerification() {
-  const { data, loading, error, reload } = useLoad(getPendingExpenses);
+  const { data, loading, error, reload } = useLoad(getPendingExpenses, [], { interval: 5000 });
   const [message, setMessage] = useState({ type: '', text: '' });
   const [rejecting, setRejecting] = useState(null);
   const [busyId, setBusyId] = useState(null);

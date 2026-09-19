@@ -14,7 +14,7 @@ const isEditable = (status) => /DRAFT|REJECT/i.test(status);
 const isLive = (status) => !/DRAFT|PEND|SUBMIT|REJECT|CLOSED|COMPLETE/i.test(status);
 
 export default function MyCampaigns() {
-  const { data, loading, error, reload } = useLoad(getMyCampaigns);
+  const { data, loading, error, reload } = useLoad(getMyCampaigns, [], { interval: 5000 });
   const [message, setMessage] = useState({ type: '', text: '' });
   const [busyId, setBusyId] = useState(null);
 

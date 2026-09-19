@@ -13,7 +13,7 @@ import Alert from '../components/Alert';
 import ReasonModal from '../components/ReasonModal';
 
 export default function CampaignApprovals() {
-  const { data, loading, error, reload } = useLoad(getPendingCampaigns);
+  const { data, loading, error, reload } = useLoad(getPendingCampaigns, [], { interval: 5000 });
   const [message, setMessage] = useState({ type: '', text: '' });
   const [rejecting, setRejecting] = useState(null);
   const [busyId, setBusyId] = useState(null);
