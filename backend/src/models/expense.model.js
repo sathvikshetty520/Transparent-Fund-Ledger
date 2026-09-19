@@ -66,7 +66,18 @@ async function findByCampaign(db, campaignId) {
   const result = await db.query(
     `
       SELECT
-        ${selectFields}
+        e.id,
+        e.allocation_id,
+        e.submitted_by,
+        e.amount,
+        e.vendor,
+        e.description,
+        e.spent_at,
+        e.receipt_path,
+        e.status,
+        e.rejection_note,
+        e.created_at,
+        e.verified_at
       FROM expenses e
       INNER JOIN allocations a
         ON a.id = e.allocation_id
