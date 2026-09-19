@@ -1,1 +1,18 @@
- 
+ {
+  "name": "audit-ledger",
+  "version": "1.0.0",
+  "description": "Tamper-evident hash-chained audit ledger library",
+  "main": "src/ledger.js",
+  "scripts": {
+    "test": "jest",
+    "verify": "node scripts/verify.js",
+    "tamper": "node scripts/tamper-demo.js",
+    "export": "node scripts/export-ledger.js"
+  },
+  "dependencies": {
+    "pg": "^8.11.3"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
