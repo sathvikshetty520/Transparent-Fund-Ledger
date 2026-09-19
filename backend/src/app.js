@@ -11,7 +11,6 @@ const campaignRoutes = require("./routes/campaign.routes");
 const donationRoutes = require("./routes/donation.routes");
 const allocationRoutes = require("./routes/allocation.routes");
 const expenseRoutes = require("./routes/expense.routes");
-const expenseRoutes = require("./routes/expense.routes");
 const dashboardRoutes = require("./routes/dashboard.routes");
 
 const app = express();
@@ -41,13 +40,8 @@ app.use("/api/campaigns", campaignRoutes);
 app.use("/api", donationRoutes);
 app.use("/api", allocationRoutes);
 app.use("/api", expenseRoutes);
-<<<<<<< HEAD
 app.use("/api", dashboardRoutes);
 
-=======
-
-// Dashboard
->>>>>>> 9254c7f (feat(dev-b): add expense management)
 // Ledger - owned by Member 4
 
 app.use(errorHandler);
