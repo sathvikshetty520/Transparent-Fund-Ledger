@@ -1,33 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import { getCampaigns } from "../services/campaign.service";
-import { formatCurrency } from "../utils/format";
+import { motion } from 'motion/react';
+import CampaignCard from '../components/campaign/CampaignCard';
 
 export default function Campaigns() {
-  const [campaigns, setCampaigns] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    getCampaigns().then((data) => {
-      setCampaigns(data);
-      setLoading(false);
-    });
-  }, []);
-
-  if (loading) return <p>Loading campaigns...</p>;
+  const campaignsList = [
+    { id: 1, title: 'Clean Water Initiative', raised: '8,200', target: '10,000' },
+    { id: 2, title: 'Community School Tech', raised: '4,500', target: '6,000' },
+    { id: 3, title: 'Medical Equipment Fund', raised: '12,000', target: '15,000' }
+  ];
 
   return (
-    <div>
-      <h2>Campaigns Explorer</h2>
-      <div style={{ display: 'grid', gap: '1rem', marginTop: '1rem' }}>
-        {campaigns.map((item) => (
-          <div key={item.id} style={{ border: '1px solid #ddd', padding: '1rem', borderRadius: '8px' }}>
-            <h3>{item.title}</h3>
-            <p>{item.description}</p>
-            <p><strong>Goal:</strong> {formatCurrency(item.targetAmount)} | <strong>Raised:</strong> {formatCurrency(item.raisedAmount)}</p>
-            <p><small>Organizer: {item.organizer}</small></p>
-          </div>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
+      style={{ padding: '2rem', maxWidth: '1200px', margin: '0 auto' }}
+    >
+      <h1 style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '1.5rem' }}>
+        Active Campaigns
+      </h1>
+
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '1.5rem' }}>
+        {campaignsList.map((campaign, index) => (
+          <CampaignCard key={campaign.id} campaign={campaign} index={index} />
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 }
