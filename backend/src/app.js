@@ -1,10 +1,12 @@
- 
 const express = require("express");
 const cors = require("cors");
 
 const env = require("./config/env");
 const errorHandler = require("./middleware/errorHandler");
 const { success } = require("./utils/response");
+
+const authRoutes = require("./routes/auth.routes");
+const userRoutes = require("./routes/user.routes");
 
 const app = express();
 
@@ -27,9 +29,12 @@ app.get("/api/health", (req, res) => {
   });
 });
 
-// Routes will be mounted here as we build them.
-// Auth
+// Authentication
+app.use("/api/auth", authRoutes);
+
 // Users
+app.use("/api/users", userRoutes);
+
 // Campaigns
 // Donations
 // Allocations
