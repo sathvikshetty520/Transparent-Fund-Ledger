@@ -9,6 +9,7 @@ const authRoutes = require("./routes/auth.routes");
 const userRoutes = require("./routes/user.routes");
 const campaignRoutes = require("./routes/campaign.routes");
 const donationRoutes = require("./routes/donation.routes");
+const allocationRoutes = require("./routes/allocation.routes");
 
 const app = express();
 
@@ -35,6 +36,11 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/campaigns", campaignRoutes);
 app.use("/api", donationRoutes);
+app.use("/api", allocationRoutes);
+
+// Expenses
+// Dashboard
+// Ledger - owned by Member 4
 
 app.use(errorHandler);
 
