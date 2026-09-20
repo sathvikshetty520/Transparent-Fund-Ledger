@@ -47,6 +47,29 @@ const authenticate = asyncHandler(async (req, res, next) => {
   }
 });
 
+const optionalAuthenticate = asyncHandler(async (req, res, next) => {
+  const token = extractToken(req);
+
+  if (!token) {
+    return next();
+  }
+
+  try {
+    const payload = jwt.verify(token, env.jwtSecret);
+
+    req.user = {
+      id: payload.id,
+      role: payload.role,
+      email: payload.email
+    };
+
+    next();
+  } catch (error) {
+    // If the token is invalid, just proceed as an unauthenticated user
+    next();
+  }
+});
+
 function authorize(...allowedRoles) {
   return function roleAuthorizationMiddleware(req, res, next) {
     if (!req.user) {
@@ -69,5 +92,6 @@ function authorize(...allowedRoles) {
 
 module.exports = {
   authenticate,
+  optionalAuthenticate,
   authorize
 };

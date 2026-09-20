@@ -25,6 +25,7 @@ function mapCampaignRow(row) {
     description: row.description,
     category: row.category,
     goalAmount: row.goal_amount,
+    collectedAmount: row.collected,
     startDate: row.start_date,
     endDate: row.end_date,
     status: row.status,
@@ -81,10 +82,11 @@ async function findPublic(db, {
 
   const result = await db.query(
     `
-      SELECT ${selectFields}
-      FROM campaigns
-      WHERE ${conditions.join(" AND ")}
-      ORDER BY created_at DESC
+      SELECT c.id, c.organizer_id, c.title, c.description, c.category, c.goal_amount, c.start_date, c.end_date, c.status, c.rejection_reason, c.created_at, c.updated_at, cfs.collected
+      FROM campaigns c
+      LEFT JOIN campaign_fund_summary cfs ON c.id = cfs.campaign_id
+      WHERE ${conditions.map(c => c.replace(/([a-zA-Z_]+)(?=\s*(?:=|IN|ILIKE))/g, 'c.$1')).join(" AND ")}
+      ORDER BY c.created_at DESC
     `,
     params
   );
@@ -95,10 +97,11 @@ async function findPublic(db, {
 async function findByOrganizer(db, organizerId) {
   const result = await db.query(
     `
-      SELECT ${selectFields}
-      FROM campaigns
-      WHERE organizer_id = $1
-      ORDER BY created_at DESC
+      SELECT c.id, c.organizer_id, c.title, c.description, c.category, c.goal_amount, c.start_date, c.end_date, c.status, c.rejection_reason, c.created_at, c.updated_at, cfs.collected
+      FROM campaigns c
+      LEFT JOIN campaign_fund_summary cfs ON c.id = cfs.campaign_id
+      WHERE c.organizer_id = $1
+      ORDER BY c.created_at DESC
     `,
     [organizerId]
   );
@@ -109,10 +112,11 @@ async function findByOrganizer(db, organizerId) {
 async function findPending(db) {
   const result = await db.query(
     `
-      SELECT ${selectFields}
-      FROM campaigns
-      WHERE status = 'PENDING_APPROVAL'
-      ORDER BY created_at ASC
+      SELECT c.id, c.organizer_id, c.title, c.description, c.category, c.goal_amount, c.start_date, c.end_date, c.status, c.rejection_reason, c.created_at, c.updated_at, cfs.collected
+      FROM campaigns c
+      LEFT JOIN campaign_fund_summary cfs ON c.id = cfs.campaign_id
+      WHERE c.status = 'PENDING_APPROVAL'
+      ORDER BY c.created_at ASC
     `
   );
 

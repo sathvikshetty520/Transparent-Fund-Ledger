@@ -1,6 +1,8 @@
 const dotenv = require("dotenv");
+const path = require("path");
 
-dotenv.config();
+// .env lives in the project root, not inside backend/
+dotenv.config({ path: path.resolve(__dirname, "../../../.env") });
 
 const env = {
   nodeEnv: process.env.NODE_ENV || "development",

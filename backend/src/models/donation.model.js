@@ -160,15 +160,20 @@ async function findByCampaign(
 async function findByDonor(db, donorId) {
   const result = await db.query(
     `
-      SELECT ${selectFields}
-      FROM donations
-      WHERE donor_id = $1
-      ORDER BY created_at DESC
+      SELECT d.id, d.campaign_id, d.donor_id, d.donor_name, d.donor_email, d.amount, d.is_anonymous, d.payment_ref, d.status, d.created_at, d.confirmed_at, c.title AS campaign_title
+      FROM donations d
+      JOIN campaigns c ON d.campaign_id = c.id
+      WHERE d.donor_id = $1
+      ORDER BY d.created_at DESC
     `,
     [donorId]
   );
 
-  return result.rows.map(mapDonationRow);
+  return result.rows.map(row => {
+    const d = mapDonationRow(row);
+    d.campaignTitle = row.campaign_title;
+    return d;
+  });
 }
 
 module.exports = {
