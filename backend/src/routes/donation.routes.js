@@ -3,7 +3,8 @@ const { z } = require("zod");
 
 const donationController = require("../controllers/donation.controller");
 const {
-  authenticate
+  authenticate,
+  optionalAuthenticate
 } = require("../middleware/auth");
 const {
   validateBody,
@@ -74,6 +75,7 @@ const donationQuerySchema = z.object({
 
 router.post(
   "/campaigns/:campaignId/donations",
+  optionalAuthenticate,
   validateParams(campaignIdSchema),
   validateBody(createDonationSchema),
   asyncHandler(donationController.createDonation)

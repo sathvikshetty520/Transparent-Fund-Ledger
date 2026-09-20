@@ -70,7 +70,7 @@ export function normalizeDonation(raw = {}) {
     status: raw.status ?? 'COMPLETED',
     date: pick(raw, ['createdAt', 'donatedAt', 'date']),
     campaignId: refId(campaign),
-    campaignTitle: refName(campaign),
+    campaignTitle: refName(campaign) || raw.campaignTitle || '',
     donorName: refName(donor, ['name', 'fullName']) || (raw.isAnonymous || raw.anonymous ? 'Anonymous' : ''),
     hash: pick(raw, ['hash', 'txHash', 'ledgerHash'], ''),
   };
